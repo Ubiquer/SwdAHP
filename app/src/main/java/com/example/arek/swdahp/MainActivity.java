@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     EditText minValueEditText;
     @BindView(R.id.maxValue)
     EditText maxValueEditText;
+    //cykcyk
 
     private ArrayList<String> companyArrayList;
     private ArrayList<Integer> doorArrayList;
