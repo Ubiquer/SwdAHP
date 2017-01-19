@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.RatingBar;
+import android.widget.Toast;
 
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.R.attr.rating;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     EditText minValueEditText;
     @BindView(R.id.maxValue)
     EditText maxValueEditText;
+    @BindView(R.id.safety_ranking)
+    RatingBar ratingBar;
     //cykcyk
 
     private ArrayList<String> companyArrayList;
@@ -61,10 +67,12 @@ public class MainActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gatherData();
+//                gatherData();
                 startActivity(i);
             }
         });
+
+        getStarsValue();
     }
 
     private void setupViews(){
@@ -79,10 +87,6 @@ public class MainActivity extends AppCompatActivity {
         companyArrayList.add("Seat");
         companyArrayList.add("Mazda");
         companyArrayList.add("Toyota");
-
-        doorArrayList = new ArrayList<Integer>();
-        doorArrayList.add(3);
-        doorArrayList.add(5);
 
         enginePowerArrayList = new ArrayList<String>();
         enginePowerArrayList.add("zakres 1");
@@ -116,16 +120,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        doorAmountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                doorAmount = Integer.parseInt(parent.getItemAtPosition(position).toString());
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//            }
-//        });
 
         enginePowerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -138,25 +132,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-//        safetySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-//            @Override
-//            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                int val = (progress * (seekBar.getWidth() - 2 * seekBar.getThumbOffset())) / seekBar.getMax();
-//                seekBarTextView.setText("" + progress);
-//                seekBarTextView.setX(seekBar.getX() + val +seekBar.getThumbOffset() / 2);
-//            }
-//
-//            @Override
-//            public void onStartTrackingTouch(SeekBar seekBar) {
-//                seekBarTextView.setVisibility(View.VISIBLE);
-//            }
-//
-//            @Override
-//            public void onStopTrackingTouch(SeekBar seekBar) {
-//                seekBarTextView.setVisibility(View.VISIBLE);
-//            }
-//        });
 
     }
 
@@ -171,5 +146,17 @@ public class MainActivity extends AppCompatActivity {
 //                                                safetyLevel, doorAmount,
 //                                                minValue, maxValue);
     }
+
+    public void getStarsValue() {
+
+        //Performing action on Button Click
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                Toast.makeText(getApplicationContext(), String.valueOf(ratingBar.getRating()), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
 }
