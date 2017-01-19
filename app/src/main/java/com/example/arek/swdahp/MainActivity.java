@@ -8,11 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.SeekBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
@@ -27,14 +23,12 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton searchButton;
     @BindView(R.id.company_spinner)
     MaterialBetterSpinner companySpinner;
-    @BindView(R.id.door_amount_spinner)
-    MaterialBetterSpinner doorAmountSpinner;
     @BindView(R.id.engine_power_spinner)
     MaterialBetterSpinner enginePowerSpinner;
-    @BindView(R.id.safety_seek_bar)
-    SeekBar safetySeekBar;
-    @BindView(R.id.seek_bar_text_view)
-    TextView seekBarTextView;
+//    @BindView(R.id.safety_seek_bar)
+//    SeekBar safetySeekBar;
+//    @BindView(R.id.seek_bar_text_view)
+//    TextView seekBarTextView;
     @BindView(R.id.minValue)
     EditText minValueEditText;
     @BindView(R.id.maxValue)
@@ -101,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         enginePowerArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, enginePowerArrayList);
 
         companySpinner.setAdapter(companyArrayAdapter);
-        doorAmountSpinner.setAdapter(doorArrayAdapter);
+//        doorAmountSpinner.setAdapter(doorArrayAdapter);
         enginePowerSpinner.setAdapter(enginePowerArrayAdapter);
 
 //        String companyText;
@@ -110,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 companyText = parent.getItemAtPosition(position).toString();
-                carSpecification.setCompanyName(companyText);
+                carSpecification.setModelName(companyText);
                 Log.i("selected ", companyText);
 
             }
@@ -121,18 +115,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        doorAmountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                doorAmount = Integer.parseInt(parent.getItemAtPosition(position).toString());
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        doorAmountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                doorAmount = Integer.parseInt(parent.getItemAtPosition(position).toString());
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//            }
+//        });
 
         enginePowerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -146,37 +138,37 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        safetySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                int val = (progress * (seekBar.getWidth() - 2 * seekBar.getThumbOffset())) / seekBar.getMax();
-                seekBarTextView.setText("" + progress);
-                seekBarTextView.setX(seekBar.getX() + val +seekBar.getThumbOffset() / 2);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                seekBarTextView.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                seekBarTextView.setVisibility(View.VISIBLE);
-            }
-        });
+//        safetySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//            @Override
+//            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//                int val = (progress * (seekBar.getWidth() - 2 * seekBar.getThumbOffset())) / seekBar.getMax();
+//                seekBarTextView.setText("" + progress);
+//                seekBarTextView.setX(seekBar.getX() + val +seekBar.getThumbOffset() / 2);
+//            }
+//
+//            @Override
+//            public void onStartTrackingTouch(SeekBar seekBar) {
+//                seekBarTextView.setVisibility(View.VISIBLE);
+//            }
+//
+//            @Override
+//            public void onStopTrackingTouch(SeekBar seekBar) {
+//                seekBarTextView.setVisibility(View.VISIBLE);
+//            }
+//        });
 
     }
 
     private void gatherData(){
 
-        safetyLevel = Integer.parseInt(seekBarTextView.getText().toString());
+//        safetyLevel = Integer.parseInt(seekBarTextView.getText().toString());
         minValue = Integer.parseInt(minValueEditText.getText().toString());
         maxValue = Integer.parseInt(maxValueEditText.getText().toString());
 
-        carSpecification = new CarSpecification(companyText,
-                                                horsePowerIntervalText,
-                                                safetyLevel, doorAmount,
-                                                minValue, maxValue);
+//        carSpecification = new CarSpecification(companyText,
+//                                                horsePowerIntervalText,
+//                                                safetyLevel, doorAmount,
+//                                                minValue, maxValue);
     }
 
 }

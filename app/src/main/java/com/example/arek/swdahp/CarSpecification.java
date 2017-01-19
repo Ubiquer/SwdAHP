@@ -5,35 +5,36 @@ package com.example.arek.swdahp;
  */
 public class CarSpecification {
 
-    private String companyName;
-    private String horsePower;
+    private String modelName;
+    private int horsePower;
     private int safetyLevel;
-    private int doorAmount;
-    private int minCost;
-    private int maxCost;
+    private int cost;
+    private int year;
+    private boolean fuel;
 
-    public CarSpecification(String companyName, String horsePower, int safetyLevel, int doorAmount, int minCost, int maxCost) {
-        this.companyName = companyName;
+    public CarSpecification(String modelName, int horsePower, int safetyLevel, int cost, int year, boolean fuel) {
+
+        this.modelName = modelName;
         this.horsePower = horsePower;
         this.safetyLevel = safetyLevel;
-        this.doorAmount = doorAmount;
-        this.minCost = minCost;
-        this.maxCost = maxCost;
+        this.cost = cost;
+        this.year = year;
+        this.fuel = fuel;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public String getModelName() {
+        return modelName;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
     }
 
-    public String getHorsePower() {
+    public int getHorsePower() {
         return horsePower;
     }
 
-    public void setHorsePower(String horsePower) {
+    public void setHorsePower(int horsePower) {
         this.horsePower = horsePower;
     }
 
@@ -45,27 +46,29 @@ public class CarSpecification {
         this.safetyLevel = safetyLevel;
     }
 
-    public int getDoorAmount() {
-        return doorAmount;
+    public int getCost() {
+        return cost;
     }
 
-    public void setDoorAmount(int doorAmount) {
-        this.doorAmount = doorAmount;
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
-    public int getMinCost() {
-        return minCost;
+    public int getYear() {
+        return year;
     }
 
-    public void setMinCost(int minCost) {
-        this.minCost = minCost;
+    public void setYear(int year) {
+        this.year = year;
     }
 
-    public int getMaxCost() {
-        return maxCost;
+    public boolean isFuel() {
+        return fuel;
     }
 
-    public void setMaxCost(int maxCost) {
-        this.maxCost = maxCost;
+    public void setFuel(boolean fuel) {
+        this.fuel = fuel;
     }
+
+
 }
