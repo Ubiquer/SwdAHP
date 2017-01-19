@@ -7,6 +7,10 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/ratingChoose</item>
+        <item name="colorControlActivated">@color/ratingChosen</item>
+    </style>
 
     <!--<shape xmlns:android="http://schemas.android.com/apk/res/android">-->
         <!--<solid android:color="#FFFFFF" />-->

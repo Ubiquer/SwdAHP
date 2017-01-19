@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -136,12 +141,14 @@
         android:paddingTop="8dp"
         android:layout_gravity="center_horizontal"
         android:numStars="5"
-        android:stepSize="0.1"
+        android:rating="0"
+        android:stepSize="0.5"
         android:clickable="true"
+        android:theme="@+style/RatingBar"
         android:id="@+id/safety_ranking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:isIndicator="true"/>
+        />
 
     <!--<SeekBar-->
         <!--android:paddingTop="8dp"-->
@@ -161,3 +168,4 @@
         app:pressedTranslationZ="12dp"/>
 
 </LinearLayout>
+    </ScrollView>
