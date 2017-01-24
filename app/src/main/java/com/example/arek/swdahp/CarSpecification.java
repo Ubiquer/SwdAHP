@@ -32,33 +32,33 @@ public class CarSpecification {
         this.modelName = modelName;
     }
 
-    public int getHorsePower() {
-        return horsePower;
-    }
+//    public int getHorsePower() {
+//        return horsePower;
+//    }
 
     public void setHorsePower(int horsePower) {
         this.horsePower = horsePower;
     }
 
-    public int getSafetyLevel() {
-        return safetyLevel;
-    }
+//    public int getSafetyLevel() {
+//        return safetyLevel;
+//    }
 
     public void setSafetyLevel(int safetyLevel) {
         this.safetyLevel = safetyLevel;
     }
 
-    public int getCost() {
-        return cost;
-    }
+//    public int getCost() {
+//        return cost;
+//    }
 
     public void setCost(int cost) {
         this.cost = cost;
     }
 
-    public int getYear() {
-        return year;
-    }
+//    public int getYear() {
+//        return year;
+//    }
 
     public void setYear(int year) {
         this.year = year;
@@ -76,7 +76,16 @@ public class CarSpecification {
         switch (theThing) {
             case "horsePower":
                 return this.horsePower;
-
+            case "safetyLevel":
+                return this.safetyLevel;
+            case "cost":
+                return this.cost;
+            case "year":
+                return this.year;
+            case "fuel":
+                return this.fuel;
+            case "kilometersDone":
+                return this.kilometersDone;
             default:
                 return 0;
         }
