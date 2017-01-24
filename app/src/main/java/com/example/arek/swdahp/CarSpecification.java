@@ -10,9 +10,10 @@ public class CarSpecification {
     private int safetyLevel;
     private int cost;
     private int year;
-    private boolean fuel;
+    private int kilometersDone;
+    private int fuel;
 
-    public CarSpecification(String modelName, int horsePower, int safetyLevel, int cost, int year, boolean fuel) {
+    public CarSpecification(String modelName, int horsePower, int safetyLevel, int cost, int year, int fuel, int kilometersDone) {
 
         this.modelName = modelName;
         this.horsePower = horsePower;
@@ -20,6 +21,7 @@ public class CarSpecification {
         this.cost = cost;
         this.year = year;
         this.fuel = fuel;
+        this.kilometersDone = kilometersDone;
     }
 
     public String getModelName() {
@@ -62,12 +64,22 @@ public class CarSpecification {
         this.year = year;
     }
 
-    public boolean isFuel() {
+    public int isFuel() {
         return fuel;
     }
 
-    public void setFuel(boolean fuel) {
+    public void setFuel(int fuel) {
         this.fuel = fuel;
+    }
+    //TODO: wyrzucic gettery powyżej i zrobić na switchu resztę, potrzebne do dynamicznego wywoływania metod w klasie budującej macierze kryteriów decyzji
+    public float returnParameter(String theThing) {
+        switch (theThing) {
+            case "horsePower":
+                return this.horsePower;
+
+            default:
+                return 0;
+        }
     }
 
 

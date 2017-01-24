@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
@@ -39,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
     EditText maxValueEditText;
     @BindView(R.id.safety_ranking)
     RatingBar ratingBar;
-    //cykcyk
+    @BindView(R.id.car_icon)
+    ImageButton imageButton;
 
     private ArrayList<String> companyArrayList;
     private ArrayList<Integer> doorArrayList;
@@ -72,7 +75,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        imageButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                ahp_start();
+            }
+        });
+
         getStarsValue();
+
     }
 
     private void setupViews(){
@@ -156,6 +167,16 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), String.valueOf(ratingBar.getRating()), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    public void ahp_start(){
+        AHP ahpp = new AHP();
+        CarSpecification [] cars  = new CarSpecification[4];
+        cars[0] = new CarSpecification("autok", 45,23,24,64,13,42);
+        cars[1] = new CarSpecification("autok", 30,23,24,64,13,42);
+        cars[2] = new CarSpecification("autok", 12,23,24,64,13,42);
+        cars[3] = new CarSpecification("autok", 100,23,24,64,13,42);
+
+        ahpp.initializeDecisionMatrix(cars, 10,15, "horsePower" );
     }
 
 

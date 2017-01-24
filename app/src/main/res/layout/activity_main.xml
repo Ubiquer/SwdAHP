@@ -16,12 +16,13 @@
     tools:context="com.example.arek.swdahp.MainActivity"
     android:orientation="vertical">
 
-    <ImageView
+    <ImageButton
         android:layout_gravity="center_horizontal"
         android:id="@+id/car_icon"
         android:src="@drawable/car"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:onClick="ahp_start"/>
 
     <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
         android:id="@+id/company_spinner"
