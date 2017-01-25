@@ -13,10 +13,12 @@ public class AHP
 {
     // ustalenie ilosci kolumn/wierszy macierzy (jedna wiecej dla wartosci parametrow samochodu)
     //amount of columns in matrix definition
-    private int numberOfColumns = 11;
+    private int numberOfColumns = 7;
     private double columnSum [][] = new double[numberOfColumns][numberOfColumns];
     private double meanOfRows [][] = new double[numberOfColumns][numberOfColumns];
     private double bestResults [] = new double[numberOfColumns];
+    private double totalValueScale[] = new double[]{1, 3, 5, 7, 9};
+    private double fractionValueScale[] = new double[]{0.9, 0.333, 0.2, 0.143, 0.111};
 
 
     double [][] criteriaMatrix = new double[numberOfColumns][numberOfColumns];
@@ -44,6 +46,7 @@ public class AHP
                 decisionMatrixFuel = initializeDecisionMatrix(cars, userParametersMin[4], userParametersMax[4], "fuel", 5);
                 decisionMatrixKilometersDone = initializeDecisionMatrix(cars, userParametersMin[5], userParametersMax[5], "kilometersDone", 6);
 
+                bestResult();
             }
         }).start();
 
@@ -52,12 +55,12 @@ public class AHP
     //metoda tworzenia macierzy kryteriów z wektora P pobranego z interfejsu (pierwszy element albo ostatni jest ucinany!)
     public double[][] initializeCriteriaMatrix(double[] p)
     {
-        double a[][]=new double[p.length][p.length];
+        double a[][]=new double[p.length+1][p.length+1];
         int k;
-        for(int i=0; i<p.length; i++)
+        for(int i=1; i<p.length+1; i++)
         {
             k = 0;
-            for(int j=0; j<p.length;j++)
+            for(int j=1; j<p.length+1;j++)
             {
                 if(i==j)
                     a[i][j]=1;
@@ -80,13 +83,11 @@ public class AHP
         public double[][] initializeDecisionMatrix (CarSpecification[]cars,double criteriaMin,
         double criteriaMax, String carParameter,int indexNumber){
 
-            double totalValueScale[] = new double[]{1, 3, 5, 7, 9};
-            double fractionValueScale[] = new double[]{0.8, 0.6, 0.4, 0.2, 0.1};
             double distanceLeft = 0, distanceUp = 0;
             double result[][] = new double[numberOfColumns][numberOfColumns];
             //uzupelnienie zerowego wiersza i zerowej kolumny wartosciami wybranych cech samochodu
             for (int i = 1; i < numberOfColumns; i++) {
-                result[0][i] = cars[i = 1].returnParameter(carParameter);
+                result[0][i] = cars[i - 1].returnParameter(carParameter);
                 result[i][0] = cars[i - 1].returnParameter(carParameter);
             }
 
@@ -117,6 +118,8 @@ public class AHP
                                 result[i][j] = totalValueScale[1];
                             if (distanceLeft > 40)
                                 result[i][j] = totalValueScale[0];
+                            else
+                                result[i][j] = 1;
 
                         } else if (distanceLeft > distanceUp) {
                             if (distanceUp <= 10)
@@ -129,7 +132,10 @@ public class AHP
                                 result[i][j] = fractionValueScale[3];
                             if (distanceUp > 40)
                                 result[i][j] = fractionValueScale[4];
+
                         }
+                        else
+                            result[i][j] = 1;
                     } else if (i > j)
                         result[i][j] = 1 / result[j][i];
                 }
@@ -158,7 +164,6 @@ public class AHP
     }
 
     private void normalizeMatrix(double[][] matrix, int indexNumber) {
-
         for (int i = 1; i < matrix.length; i++) {
 
             for (int j = 1; j < matrix.length; j++) {
@@ -193,7 +198,6 @@ public class AHP
 
             }
         }
-        Log.i("cos:", bestResults[0] + "");
     }
 
     private int bestResult() {
@@ -202,6 +206,7 @@ public class AHP
         for (int i = 1; i < numberOfColumns; i++) {
             for (int j = 1; j < numberOfColumns; j++) {
                 bestResults[i] += (meanOfRows[i][j] * meanOfRows[j][i]);
+
             }
         }
         Log.i("cos:", bestResults[0] + "");

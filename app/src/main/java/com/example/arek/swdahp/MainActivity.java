@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
         getStarsValue();
 
+
     }
 
     private void setupViews(){
@@ -173,47 +174,50 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public void ahpStart(){
-        CarSpecification [] cars  = new CarSpecification[10];
-
-        //ponizej wybor marki (switch)
-        cars[0] = new CarSpecification("autok", 45,23,24,64,13,42);
-        cars[1] = new CarSpecification("autok", 30,23,24,64,13,42);
-        cars[2] = new CarSpecification("autok", 12,23,24,64,13,42);
-        cars[3] = new CarSpecification("autok", 100,23,24,64,13,42);
-        cars[4] = new CarSpecification("autok", 10,23,24,64,13,42);
-        cars[5] = new CarSpecification("autok", 143,23,24,64,13,42);
-        cars[6] = new CarSpecification("autok", 120,23,24,64,13,42);
-        cars[7] = new CarSpecification("autok", 22,23,24,64,13,42);
-        cars[8] = new CarSpecification("autok", 5,23,24,64,13,42);
-        cars[9] = new CarSpecification("autok", 200,23,24,64,13,42);
-
-        criteria[0] = 1;
-        criteria[1] = 3;
-        criteria[2] = 4;
-        criteria[3] = 5;
-        criteria[4] = 7;
-        criteria[5] = 9;
-
-        userParametersMin[0] = 10;
-        userParametersMax[0] = 15;
-        userParametersMin[1] = 5;
-        userParametersMin[1] = 6;
-        userParametersMin[2] = 23;
-        userParametersMax[2] = 25;
-        userParametersMin[3] = 50;
-        userParametersMin[3] = 55;
-        userParametersMin[4] = 21;
-        userParametersMax[4] = 25;
-        userParametersMin[5] = 10;
-        userParametersMin[5] = 14;
 
 
+    public void ahpStart() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
 
-        AHP ahp = new AHP();
-        ahp.process(criteria, cars, userParametersMin, userParametersMax);
+                CarSpecification [] cars  = new CarSpecification[7];
 
+                //ponizej wybor marki (switch)
+                cars[0] = new CarSpecification("autok", 45,22,24,1,24,45);
+                cars[1] = new CarSpecification("autok", 30,25,24,90,62,32);
+                cars[2] = new CarSpecification("autok", 12,24,24,64,32,13);
+                cars[3] = new CarSpecification("autok", 17,56,24,86,45,55);
+                cars[4] = new CarSpecification("autok", 10,67,24,77,42,44);
+                cars[5] = new CarSpecification("autok", 14,89,76,64,12,48);
+//                cars[6] = new CarSpecification("autok", 17,12,64,78,68,42);
+//                cars[7] = new CarSpecification("autok", 22,9,342,64,54,13);
+//                cars[8] = new CarSpecification("autok", 5,87,53,64,78,32);
+//                cars[9] = new CarSpecification("autok", 20,26,24,65,13,42);
 
+                criteria[0] = 1;
+                criteria[1] = 3;
+                criteria[2] = 4;
+                criteria[3] = 5;
+                criteria[4] = 7;
+                criteria[5] = 9;
+
+                userParametersMin[0] = 10;
+                userParametersMax[0] = 15;
+                userParametersMin[1] = 5;
+                userParametersMax[1] = 6;
+                userParametersMin[2] = 23;
+                userParametersMax[2] = 25;
+                userParametersMin[3] = 50;
+                userParametersMax[3] = 55;
+                userParametersMin[4] = 21;
+                userParametersMax[4] = 25;
+                userParametersMin[5] = 10;
+                userParametersMax[5] = 14;
+                AHP ahp = new AHP();
+                ahp.process(criteria, cars, userParametersMin, userParametersMax);
+            }
+        }).start();
     }
 
 
