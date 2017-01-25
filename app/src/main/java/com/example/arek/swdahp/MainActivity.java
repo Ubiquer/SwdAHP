@@ -210,7 +210,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        AHP ahp = new AHP(criteria, cars, userParametersMin, userParametersMax);
+        AHP ahp = new AHP();
+        ahp.process(criteria, cars, userParametersMin, userParametersMax);
 
 
     }
