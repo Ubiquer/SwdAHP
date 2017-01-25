@@ -38,7 +38,7 @@ public class AHP
     }
     //tworzenie macierzy decyzji
     //TODO: argument wyboru metody klasy CarSpecification - wybór getter
-    public void initializeDecisionMatrix(CarSpecification [] cars, double criteriaMin, double criteriaMax, String carParameter) {
+    public double[][] initializeDecisionMatrix(CarSpecification [] cars, double criteriaMin, double criteriaMax, String carParameter) {
 
         double totalValueScale [] = new double[] {1, 3, 5, 7, 9};
         double fractionValueScale [] = new double[] {0.8, 0.6, 0.4, 0.2, 0.1};
@@ -71,16 +71,28 @@ public class AHP
 //                    uzywanie skali w gore
                     if (distanceLeft<distanceUp){
                         if(distanceLeft<=10)
-                            result[i][j] = totalValueScale[1];
+                            result[i][j] = totalValueScale[4];
                         if(distanceLeft>10 && distanceLeft<=20)
+                            result[i][j] = totalValueScale[3];
+                        if(distanceLeft>20 && distanceLeft<=30)
                             result[i][j] = totalValueScale[2];
+                        if(distanceLeft>30 && distanceLeft<=40)
+                            result[i][j] = totalValueScale[1];
+                        if(distanceLeft>40)
+                            result[i][j] = totalValueScale[0];
 
                     }
-                    else if (distanceUp<distanceLeft) {
+                    else if (distanceLeft>distanceUp) {
                         if(distanceUp<=10)
-                            result[i][j] = fractionValueScale[1];
+                            result[i][j] = fractionValueScale[0];
                         if(distanceUp>10 && distanceUp<=20)
+                            result[i][j] = fractionValueScale[1];
+                        if(distanceUp>20 && distanceUp<=30)
                             result[i][j] = fractionValueScale[2];
+                        if(distanceUp>30 && distanceUp<=40)
+                            result[i][j] = fractionValueScale[3];
+                        if(distanceUp>40)
+                            result[i][j] = fractionValueScale[4];
                     }
                 }
                 else if(i>j)
@@ -88,7 +100,10 @@ public class AHP
             }
         }
         //printowanie macierzy
-        showMatrix(result);
+//        showMatrix(result);
+
+        normalizeMatrix(result);
+        return result;
     }
 
     public void showMatrix(double [][] matrix)
@@ -103,10 +118,69 @@ public class AHP
 //        array[5] = 10000;
 //        AHP ahpp = new AHP();
 //        double [][] newMatrix = ahpp.initializeCriteriaMatrix(array);
+
         for(int i=0; i<matrix.length;i++)
         {
             for(int j=0; j<matrix[i].length; j++)
                 Log.i("wiadomosc", matrix[i][j]+"    ");
         }
     }
+
+    private double [][] normalizeMatrix(double [][] matrix){
+
+        double columnSum [] = new double[numberOfColumns];
+
+        for (int i=1; i< numberOfColumns; i++ ){
+
+            for (int j=1; j<numberOfColumns; j++){
+
+               columnSum[i] += matrix[j][i];
+
+            }
+
+        }
+
+        for (int i=1; i< numberOfColumns; i++ ){
+
+            for (int j=1; j<numberOfColumns; j++){
+
+                matrix[j][i] /= columnSum[i];
+
+            }
+
+        }
+
+//        showMatrix(matrix);
+//        Log.d("cokolwiek",columnSum[1] + " wynik");
+        preferenceVector(matrix);
+        return matrix;
+
+    }
+
+    private double[] preferenceVector(double[][] matrix){
+
+        double[] meanOfRows = new double[numberOfColumns];
+
+        for (int i=1; i< numberOfColumns; i++ ){
+
+            for (int j=1; j<numberOfColumns; j++){
+
+                meanOfRows[i] += matrix[i][j]/(numberOfColumns-1);
+
+            }
+
+                Log.d("mean of rows:", meanOfRows[i]+" wynik");
+
+        }
+
+        return meanOfRows;
+    }
+
+
+    private void startMethods(){
+
+
+
+    }
+
 }
