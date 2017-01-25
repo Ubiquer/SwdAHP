@@ -184,16 +184,12 @@ public class MainActivity extends AppCompatActivity {
                 CarSpecification [] cars  = new CarSpecification[7];
 
                 //ponizej wybor marki (switch)
-                cars[0] = new CarSpecification("autok", 45,22,24,1,24,45);
-                cars[1] = new CarSpecification("autok", 30,25,24,90,62,32);
-                cars[2] = new CarSpecification("autok", 12,24,24,64,32,13);
-                cars[3] = new CarSpecification("autok", 17,56,24,86,45,55);
-                cars[4] = new CarSpecification("autok", 10,67,24,77,42,44);
-                cars[5] = new CarSpecification("autok", 14,89,76,64,12,48);
-//                cars[6] = new CarSpecification("autok", 17,12,64,78,68,42);
-//                cars[7] = new CarSpecification("autok", 22,9,342,64,54,13);
-//                cars[8] = new CarSpecification("autok", 5,87,53,64,78,32);
-//                cars[9] = new CarSpecification("autok", 20,26,24,65,13,42);
+                cars[0] = new CarSpecification("autok", 45,22,67,1,24,45);
+                cars[1] = new CarSpecification("autok", 30,25,31,90,62,32);
+                cars[2] = new CarSpecification("autok", 12,24,32,64,32,13);
+                cars[3] = new CarSpecification("autok", 17,56,14,86,45,55);
+                cars[4] = new CarSpecification("autok", 10,67,1,77,42,44);
+                cars[5] = new CarSpecification("autok", 14,89,89,64,12,48);
 
                 criteria[0] = 1;
                 criteria[1] = 3;

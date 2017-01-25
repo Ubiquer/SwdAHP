@@ -108,29 +108,29 @@ public class AHP
                             distanceUp = result[j][0] - criteriaMax;
 //                    uzywanie skali w gore
                         if (distanceLeft < distanceUp) {
-                            if (distanceLeft <= 10)
+                            if (distanceLeft <= 0.02*result[0][i])
                                 result[i][j] = totalValueScale[4];
-                            if (distanceLeft > 10 && distanceLeft <= 20)
+                            if (distanceLeft > 0.02*result[0][i] && distanceLeft <= 0.05*result[0][i])
                                 result[i][j] = totalValueScale[3];
-                            if (distanceLeft > 20 && distanceLeft <= 30)
+                            if (distanceLeft > 0.05*result[0][i] && distanceLeft <= 0.08*result[0][i])
                                 result[i][j] = totalValueScale[2];
-                            if (distanceLeft > 30 && distanceLeft <= 40)
+                            if (distanceLeft > 0.08*result[0][i] && distanceLeft <= 0.1*result[0][i])
                                 result[i][j] = totalValueScale[1];
-                            if (distanceLeft > 40)
+                            if (distanceLeft > 0.1*result[0][i])
                                 result[i][j] = totalValueScale[0];
                             else
                                 result[i][j] = 1;
 
                         } else if (distanceLeft > distanceUp) {
-                            if (distanceUp <= 10)
+                            if (distanceUp <= 0.02*result[j][0])
                                 result[i][j] = fractionValueScale[0];
-                            if (distanceUp > 10 && distanceUp <= 20)
+                            if (distanceUp > 0.02*result[j][0] && distanceUp <= 0.05*result[j][0])
                                 result[i][j] = fractionValueScale[1];
-                            if (distanceUp > 20 && distanceUp <= 30)
+                            if (distanceUp > 0.05*result[j][0] && distanceUp <= 0.08*result[j][0])
                                 result[i][j] = fractionValueScale[2];
-                            if (distanceUp > 30 && distanceUp <= 40)
+                            if (distanceUp > 0.08*result[j][0] && distanceUp <= 0.1*result[j][0])
                                 result[i][j] = fractionValueScale[3];
-                            if (distanceUp > 40)
+                            if (distanceUp > 0.1*result[j][0])
                                 result[i][j] = fractionValueScale[4];
 
                         }
@@ -146,17 +146,6 @@ public class AHP
         }
 
     public void showMatrix(double[][] matrix) {
-        //display the elements of the matrix
-//        double [] array = new double[6];
-//        array[0] = 2;
-//        array[1] = 3;
-//        array[2] = 5;
-//        array[3] = 7;
-//        array[4] = 9;
-//        array[5] = 10000;
-//        AHP ahpp = new AHP();
-//        double [][] newMatrix = ahpp.initializeCriteriaMatrix(array);
-
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++)
                 Log.i("wiadomosc", matrix[i][j] + "    ");
@@ -205,7 +194,7 @@ public class AHP
         //tylko na meanOfRows
         for (int i = 1; i < numberOfColumns; i++) {
             for (int j = 1; j < numberOfColumns; j++) {
-                bestResults[i] += (meanOfRows[i][j] * meanOfRows[j][i]);
+                bestResults[i] += (meanOfRows[0][j] * meanOfRows[j][i]);
 
             }
         }
