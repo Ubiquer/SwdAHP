@@ -13,8 +13,27 @@ public class AHP
     // ustalenie ilosci kolumn/wierszy macierzy (jedna wiecej dla wartosci parametrow samochodu)
     //amount of columns in matrix definition
     private int numberOfColumns = 4;
+    private double columnSum [][] = new double[numberOfColumns][numberOfColumns];
+    private double meanOfRows [][] = new double[numberOfColumns][numberOfColumns];
+
+
+    double [][] criteriaMatrix = new double[numberOfColumns][numberOfColumns];
+    double [][] decisionMatrixHorsePower = new double[numberOfColumns][numberOfColumns];
+    double [][] decisionMatrixSafetyLevel = new double[numberOfColumns][numberOfColumns];
+//    double [][] decisionMatrixCost = new double[numberOfColumns][numberOfColumns];
+//    double [][] decisionMatrixYear = new double[numberOfColumns][numberOfColumns];
+//    double [][] decisionMatrixFuel = new double[numberOfColumns][numberOfColumns];
+//    double [][] decisionMatrixKilometersDone = new double[numberOfColumns][numberOfColumns];
+
+    public AHP(double [] userPreferences, CarSpecification [] cars, double [] userParametersMin, double [] userParametersMax ){
+
+        this.criteriaMatrix = initializeCriteriaMatrix(userPreferences);
+        //TODO:skopiowac 6 razy dla wszystkich parametrów
+        this.decisionMatrixHorsePower = initializeDecisionMatrix(cars, userParametersMin[0], userParametersMax[0], "horsePower", 1);
+        this.decisionMatrixSafetyLevel = initializeDecisionMatrix(cars, userParametersMin[1], userParametersMax[1], "safetyLevel", 2);
+    }
     //metoda tworzenia macierzy kryteriów z wektora P pobranego z interfejsu (pierwszy element albo ostatni jest ucinany!)
-    public static double[][] initializeCriteriaMatrix(double[] p)
+    public double[][] initializeCriteriaMatrix(double[] p)
     {
         double a[][]=new double[p.length][p.length];
         int k;
@@ -34,11 +53,12 @@ public class AHP
                     a[i][j]=1/a[j][i];
             }
         }
+        normalizeMatrix(a ,0);
         return a;
     }
     //tworzenie macierzy decyzji
-    //TODO: argument wyboru metody klasy CarSpecification - wybór getter
-    public double[][] initializeDecisionMatrix(CarSpecification [] cars, double criteriaMin, double criteriaMax, String carParameter) {
+
+    public double [][] initializeDecisionMatrix(CarSpecification [] cars, double criteriaMin, double criteriaMax, String carParameter, int indexNumber) {
 
         double totalValueScale [] = new double[] {1, 3, 5, 7, 9};
         double fractionValueScale [] = new double[] {0.8, 0.6, 0.4, 0.2, 0.1};
@@ -99,10 +119,8 @@ public class AHP
                     result[i][j]=1/result[j][i];
             }
         }
-        //printowanie macierzy
-//        showMatrix(result);
 
-        normalizeMatrix(result);
+        normalizeMatrix(result, indexNumber);
         return result;
     }
 
@@ -126,16 +144,13 @@ public class AHP
         }
     }
 
-    private double [][] normalizeMatrix(double [][] matrix){
-
-        double columnSum [] = new double[numberOfColumns];
+    private void normalizeMatrix(double [][] matrix, int indexNumber){
 
         for (int i=1; i< numberOfColumns; i++ ){
 
-            for (int j=1; j<numberOfColumns; j++){
+            for (int j=1; j< numberOfColumns; j++){
 
-               columnSum[i] += matrix[j][i];
-
+               columnSum[indexNumber][i] += matrix[j][i];
             }
 
         }
@@ -144,43 +159,32 @@ public class AHP
 
             for (int j=1; j<numberOfColumns; j++){
 
-                matrix[j][i] /= columnSum[i];
-
+                matrix[j][i] /= columnSum[indexNumber][i];
             }
 
         }
 
 //        showMatrix(matrix);
 //        Log.d("cokolwiek",columnSum[1] + " wynik");
-        preferenceVector(matrix);
-        return matrix;
+        preferenceVector(matrix, indexNumber);
 
     }
 
-    private double[] preferenceVector(double[][] matrix){
+    private void preferenceVector(double[][] matrix, int indexNumber){
 
-        double[] meanOfRows = new double[numberOfColumns];
+        for (int i=1; i< this.numberOfColumns; i++ ){
 
-        for (int i=1; i< numberOfColumns; i++ ){
+            for (int j=1; j<this.numberOfColumns; j++){
 
-            for (int j=1; j<numberOfColumns; j++){
-
-                meanOfRows[i] += matrix[i][j]/(numberOfColumns-1);
+                meanOfRows[indexNumber][i] += matrix[i][j]/(numberOfColumns-1);
 
             }
-
-                Log.d("mean of rows:", meanOfRows[i]+" wynik");
-
         }
-
-        return meanOfRows;
-    }
-
-
-    private void startMethods(){
-
-
+        Log.i("mean of rows:", meanOfRows[1]+" "+meanOfRows[2]+ " "+ meanOfRows[3]+" wynik");
 
     }
+
+
+
 
 }

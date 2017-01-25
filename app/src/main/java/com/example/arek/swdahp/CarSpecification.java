@@ -47,12 +47,21 @@ public class CarSpecification {
     public void setFuel(int fuel) {
         this.fuel = fuel;
     }
-    //TODO: wyrzucic gettery powyżej i zrobić na switchu resztę, potrzebne do dynamicznego wywoływania metod w klasie budującej macierze kryteriów decyzji
+
     public int returnParameter(String theThing) {
         switch (theThing) {
             case "horsePower":
                 return this.horsePower;
-
+            case "safetyLevel":
+                return this.safetyLevel;
+            case "cost":
+                return this.cost;
+            case  "year":
+                return this.year;
+            case "fuel":
+                return this.fuel;
+            case "kilometersDone":
+                return this.kilometersDone;
             default:
                 return 0;
         }

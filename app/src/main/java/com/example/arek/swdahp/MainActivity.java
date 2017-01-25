@@ -21,9 +21,14 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.R.attr.cropToPadding;
 import static android.R.attr.rating;
 
 public class MainActivity extends AppCompatActivity {
+
+    double [] criteria = new double[6];
+    double [] userParametersMin = new double[6];
+    double [] userParametersMax = new double[6];
 
     @BindView(R.id.search)
     FloatingActionButton searchButton;
@@ -169,14 +174,29 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void ahpStart(){
-        AHP ahpp = new AHP();
         CarSpecification [] cars  = new CarSpecification[4];
+
+        //ponizej wybor marki (switch)
         cars[0] = new CarSpecification("autok", 45,23,24,64,13,42);
         cars[1] = new CarSpecification("autok", 30,23,24,64,13,42);
         cars[2] = new CarSpecification("autok", 12,23,24,64,13,42);
         cars[3] = new CarSpecification("autok", 100,23,24,64,13,42);
 
-        ahpp.initializeDecisionMatrix(cars, 10,15, "horsePower" );
+        criteria[0] = 1;
+        criteria[1]=3;
+//        criteria[2] = 5;
+//        criteria[3] = 6;
+//        criteria[4] = 7;
+//        criteria[5] = 9;
+        userParametersMin[0] = 10;
+        userParametersMax[0] = 15;
+        userParametersMin[1] = 2;
+        userParametersMin[1] = 2;
+
+
+        AHP ahp = new AHP(criteria, cars, userParametersMin, userParametersMax);
+
+
     }
 
 
