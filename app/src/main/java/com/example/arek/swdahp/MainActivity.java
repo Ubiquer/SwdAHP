@@ -174,24 +174,40 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void ahpStart(){
-        CarSpecification [] cars  = new CarSpecification[4];
+        CarSpecification [] cars  = new CarSpecification[10];
 
         //ponizej wybor marki (switch)
         cars[0] = new CarSpecification("autok", 45,23,24,64,13,42);
         cars[1] = new CarSpecification("autok", 30,23,24,64,13,42);
         cars[2] = new CarSpecification("autok", 12,23,24,64,13,42);
         cars[3] = new CarSpecification("autok", 100,23,24,64,13,42);
+        cars[4] = new CarSpecification("autok", 10,23,24,64,13,42);
+        cars[5] = new CarSpecification("autok", 143,23,24,64,13,42);
+        cars[6] = new CarSpecification("autok", 120,23,24,64,13,42);
+        cars[7] = new CarSpecification("autok", 22,23,24,64,13,42);
+        cars[8] = new CarSpecification("autok", 5,23,24,64,13,42);
+        cars[9] = new CarSpecification("autok", 200,23,24,64,13,42);
 
         criteria[0] = 1;
-        criteria[1]=3;
-//        criteria[2] = 5;
-//        criteria[3] = 6;
-//        criteria[4] = 7;
-//        criteria[5] = 9;
+        criteria[1] = 3;
+        criteria[2] = 4;
+        criteria[3] = 5;
+        criteria[4] = 7;
+        criteria[5] = 9;
+
         userParametersMin[0] = 10;
         userParametersMax[0] = 15;
-        userParametersMin[1] = 2;
-        userParametersMin[1] = 2;
+        userParametersMin[1] = 5;
+        userParametersMin[1] = 6;
+        userParametersMin[2] = 23;
+        userParametersMax[2] = 25;
+        userParametersMin[3] = 50;
+        userParametersMin[3] = 55;
+        userParametersMin[4] = 21;
+        userParametersMax[4] = 25;
+        userParametersMin[5] = 10;
+        userParametersMin[5] = 14;
+
 
 
         AHP ahp = new AHP(criteria, cars, userParametersMin, userParametersMax);

@@ -12,18 +12,19 @@ public class AHP
 {
     // ustalenie ilosci kolumn/wierszy macierzy (jedna wiecej dla wartosci parametrow samochodu)
     //amount of columns in matrix definition
-    private int numberOfColumns = 4;
+    private int numberOfColumns = 11;
     private double columnSum [][] = new double[numberOfColumns][numberOfColumns];
     private double meanOfRows [][] = new double[numberOfColumns][numberOfColumns];
+    private double bestResults [] = new double[numberOfColumns];
 
 
     double [][] criteriaMatrix = new double[numberOfColumns][numberOfColumns];
     double [][] decisionMatrixHorsePower = new double[numberOfColumns][numberOfColumns];
     double [][] decisionMatrixSafetyLevel = new double[numberOfColumns][numberOfColumns];
-//    double [][] decisionMatrixCost = new double[numberOfColumns][numberOfColumns];
-//    double [][] decisionMatrixYear = new double[numberOfColumns][numberOfColumns];
-//    double [][] decisionMatrixFuel = new double[numberOfColumns][numberOfColumns];
-//    double [][] decisionMatrixKilometersDone = new double[numberOfColumns][numberOfColumns];
+    double [][] decisionMatrixCost = new double[numberOfColumns][numberOfColumns];
+    double [][] decisionMatrixYear = new double[numberOfColumns][numberOfColumns];
+    double [][] decisionMatrixFuel = new double[numberOfColumns][numberOfColumns];
+    double [][] decisionMatrixKilometersDone = new double[numberOfColumns][numberOfColumns];
 
     public AHP(double [] userPreferences, CarSpecification [] cars, double [] userParametersMin, double [] userParametersMax ){
 
@@ -31,6 +32,11 @@ public class AHP
         //TODO:skopiowac 6 razy dla wszystkich parametrów
         this.decisionMatrixHorsePower = initializeDecisionMatrix(cars, userParametersMin[0], userParametersMax[0], "horsePower", 1);
         this.decisionMatrixSafetyLevel = initializeDecisionMatrix(cars, userParametersMin[1], userParametersMax[1], "safetyLevel", 2);
+        this.decisionMatrixCost = initializeDecisionMatrix(cars, userParametersMin[2], userParametersMax[2], "cost", 3);
+        this.decisionMatrixYear = initializeDecisionMatrix(cars, userParametersMin[3], userParametersMax[3], "year", 4);
+        this.decisionMatrixFuel = initializeDecisionMatrix(cars, userParametersMin[4], userParametersMax[4], "fuel", 5);
+        this.decisionMatrixKilometersDone = initializeDecisionMatrix(cars, userParametersMin[5], userParametersMax[5], "kilometersDone", 6);
+        bestResult();
     }
     //metoda tworzenia macierzy kryteriów z wektora P pobranego z interfejsu (pierwszy element albo ostatni jest ucinany!)
     public double[][] initializeCriteriaMatrix(double[] p)
@@ -172,7 +178,7 @@ public class AHP
 
     private void preferenceVector(double[][] matrix, int indexNumber){
 
-        for (int i=1; i< this.numberOfColumns; i++ ){
+        for (int i=1; i< this.numberOfColumns; i++){
 
             for (int j=1; j<this.numberOfColumns; j++){
 
@@ -180,8 +186,17 @@ public class AHP
 
             }
         }
-        Log.i("mean of rows:", meanOfRows[1]+" "+meanOfRows[2]+ " "+ meanOfRows[3]+" wynik");
+    }
 
+    private int bestResult(){
+
+        //tylko na meanOfRows
+        for(int i=1; i<numberOfColumns ;i++) {
+            for (int j=1; j<numberOfColumns; j++) {
+                bestResults[i] += (meanOfRows[i][j]*meanOfRows[j][i]);
+            }
+        }
+        return 1;
     }
 
 
