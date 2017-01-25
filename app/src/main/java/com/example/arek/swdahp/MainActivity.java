@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         imageButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                ahp_start();
+                ahpStart();
             }
         });
 
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public void ahp_start(){
+    public void ahpStart(){
         AHP ahpp = new AHP();
         CarSpecification [] cars  = new CarSpecification[4];
         cars[0] = new CarSpecification("autok", 45,23,24,64,13,42);
