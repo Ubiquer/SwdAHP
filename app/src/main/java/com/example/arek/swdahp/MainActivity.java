@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     private double safetyLevel;
     private int minValue;
     private int maxValue;
+    private Intent i;
 
     CarSpecification carSpecification;
 
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         ButterKnife.bind(this);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         setupViews();
-        final Intent i = new Intent(this, ScoresActivity.class);
+        i = new Intent(this, ScoresActivity.class);
 
         updateComfortLevel(comfortSeekBar.getProgress());
 
@@ -110,9 +111,12 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gatherData();
-
-                startActivity(i);
+                if (checkShit()){
+                    gatherData();
+                }else{
+                    Toast.makeText(getApplicationContext(),"Wszystkie pola muszą być wypełnione ",
+                            Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -218,7 +222,6 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
 
     }
-
 
     public void getStarsValue() {
 
@@ -340,6 +343,26 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         userParametersMax[4] = comfort + 10;
         userParametersMin[5] = Double.parseDouble(minKilometersDone.getText().toString());
         userParametersMax[5] = Double.parseDouble(maxKilometersDone.getText().toString());
+
+        startActivity(i);
+
+    }
+
+    public boolean checkShit(){
+
+        if( maxValueEditText.getText().toString().equals("") || minValueEditText.getText().toString().equals("")
+                || maxKilometersDone.getText().toString() == "" || minKilometersDone == null || ratingBar.getRating() == 0
+                || minHorsePowerEditText.getText().toString() == "" || maxHorsePowerEditText.getText().toString() == "" ||
+                companySpinner.getSelectedItem() == null || minProductionYear.getSelectedItem() == null
+                || maxProductionYear.getSelectedItem() == null){
+
+            return false;
+
+        }else{
+
+            return true;
+        }
+
 
 
     }
