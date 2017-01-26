@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">WhichCar</string>
+    <string-array name="car_images">
+        <item>@drawable/car1</item>
+        <item>@drawable/car2</item>
+    </string-array>
 </resources>

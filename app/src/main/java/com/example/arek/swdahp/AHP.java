@@ -1,5 +1,6 @@
 package com.example.arek.swdahp;
 
+import android.content.Intent;
 import android.util.Log;
 import java.lang.reflect.*;
 import java.util.Arrays;
@@ -16,7 +17,7 @@ public class AHP
     private int numberOfColumns = 7;
     private double columnSum [][] = new double[numberOfColumns][numberOfColumns];
     private double meanOfRows [][] = new double[numberOfColumns][numberOfColumns];
-    private double bestResults [] = new double[numberOfColumns];
+    public double bestResults [] = new double[numberOfColumns];
     private double consistencyRatioValue [] = new double[numberOfColumns];
     private double totalValueScale[] = new double[]{1, 3, 5, 7, 9};
     private double fractionValueScale[] = new double[]{0.9, 0.333, 0.2, 0.143, 0.111};
@@ -190,7 +191,7 @@ public class AHP
         }
     }
 
-    private int bestResult() {
+    public double [] bestResult() {
 
         //tylko na meanOfRows
         for (int i = 1; i < numberOfColumns; i++) {
@@ -201,7 +202,7 @@ public class AHP
         }
         Log.i("cos:", bestResults[0] + "");
         consistencyRatio();
-        return 1;
+        return bestResults;
     }
 
     private double consistencyRatio() {
@@ -222,6 +223,7 @@ public class AHP
 
         return 1.0;
     }
+
 
 
 

@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ScoresActivity" />
-        <activity android:name=".MyPriority"></activity>
+
     </application>
 
 </manifest>

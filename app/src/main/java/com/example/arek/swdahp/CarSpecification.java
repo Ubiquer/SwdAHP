@@ -1,9 +1,12 @@
 package com.example.arek.swdahp;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Arek on 2016-12-08.
  */
-public class CarSpecification {
+public class CarSpecification implements Parcelable {
 
     private String modelName;
     private int horsePower;
@@ -24,6 +27,28 @@ public class CarSpecification {
         this.kilometersDone = kilometersDone;
     }
 
+    protected CarSpecification(Parcel in) {
+        modelName = in.readString();
+        horsePower = in.readInt();
+        safetyLevel = in.readInt();
+        cost = in.readInt();
+        year = in.readInt();
+        kilometersDone = in.readInt();
+        comfort = in.readInt();
+    }
+
+    public static final Creator<CarSpecification> CREATOR = new Creator<CarSpecification>() {
+        @Override
+        public CarSpecification createFromParcel(Parcel in) {
+            return new CarSpecification(in);
+        }
+
+        @Override
+        public CarSpecification[] newArray(int size) {
+            return new CarSpecification[size];
+        }
+    };
+
     public void setModelName(String modelName) {
         this.modelName = modelName;
     }
@@ -42,6 +67,9 @@ public class CarSpecification {
 
     public void setYear(int year) {
         this.year = year;
+    }
+    public String getModelName() {
+        return this.modelName;
     }
 
     public void setComfort(int comfort) {
@@ -68,4 +96,16 @@ public class CarSpecification {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(this.modelName);
+        parcel.writeInt(this.horsePower);
+        parcel.writeInt(this.safetyLevel);
+
+    }
 }
