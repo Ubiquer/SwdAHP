@@ -239,21 +239,46 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
                 CarSpecification [] cars  = new CarSpecification[7];
 
-                //ponizej wybor marki (switch)
-                cars[0] = new CarSpecification("autok", 45,22,67,1,24,45);
-                cars[1] = new CarSpecification("autok", 30,25,31,90,62,32);
-                cars[2] = new CarSpecification("autok", 12,24,32,64,32,13);
-                cars[3] = new CarSpecification("autok", 17,56,14,86,45,55);
-                cars[4] = new CarSpecification("autok", 10,67,1,77,42,44);
-                cars[5] = new CarSpecification("autok", 14,89,89,64,12,48);
-
-
                 criteria[0] = 1;
                 criteria[1] = 3;
                 criteria[2] = 4;
                 criteria[3] = 5;
                 criteria[4] = 7;
                 criteria[5] = 9;
+                //mercedesy (horsePower, safetyLevel, cost, year, comfort, kilometersDone);
+
+                cars[0] = new CarSpecification("Mercedes Klasa C T [S 205]", 230,81,340000,2014,90,3000);
+                cars[1] = new CarSpecification("Mercedes Klasa C Coupe [C205]", 285,77,364000,2015,88,12000);
+                cars[2] = new CarSpecification("Mercedes Klasa C [W 205] 2014", 320,89,289000,2013,95,31000);
+                cars[3] = new CarSpecification("Mercedes Klasa E Coupe [C 207]", 220,72,310000,2014,82,55000);
+                cars[4] = new CarSpecification("Mercedes Klasa E[W 212]", 245,79,230000,2012,88,69000);
+                cars[5] = new CarSpecification("Mercedes Klasa E T [S213]", 260,85,390000,2016,95,7000);
+//
+//                //BMW
+//                cars[0] = new CarSpecification("BMW Seria 5[G30]", 370,84,450000,2017,90,1000);
+//                cars[1] = new CarSpecification("BMW Seria 5[F10] 2010", 190,63,210000,2012,75,89000);
+//                cars[2] = new CarSpecification("BMW Seria 5 Touring [F11] 2010", 215,68,244000,2014,82,59000);
+//                cars[3] = new CarSpecification("BMW Seria 4 Gran Coupe [F36] ", 260,58,195000,2012,51,95000);
+//                cars[4] = new CarSpecification("BMW Seria 4 Cabrio [F33] 2013", 320,49,280000,2014,77,33000);
+//                cars[5] = new CarSpecification("BMW Seria 4 Coupe [F32] 2013", 300,88,390000,2016,95,81000);
+//
+//                //Audi
+//                cars[0] = new CarSpecification("Audi A6 RS6 Avant [4G]", 430,72,389000,2017,81,2000);
+//                cars[1] = new CarSpecification("Audi A6 Allroad ", 250,79,160000,2011,88,90000);
+//                cars[2] = new CarSpecification("Audi A6 VAN S6 Avant", 300,91,220000,2013,99,79000);
+//                cars[3] = new CarSpecification("Audi A7 RS7 Sportback ", 510,65,330000,2015,78,33000);
+//                cars[4] = new CarSpecification("Audi A7 S7", 190,66,280000,2016,69,28000);
+//                cars[5] = new CarSpecification("Audi A7 VAN S7", 210,80,210000,2012,92,54000);
+//
+//                //Volvo
+//                cars[0] = new CarSpecification("Volvo S60", 130,45,100000,2016,58,10000);
+//                cars[1] = new CarSpecification("Volvo S90", 190,68,199000,2017,77,8000);
+//                cars[2] = new CarSpecification("Volvo V60", 175,74,120000,2013,60,90000);
+//                cars[3] = new CarSpecification("Volvo V90", 150,60,170000,2016,89,35000);
+//                cars[4] = new CarSpecification("Volvo XC60", 210,85,90000,2011, 80, 90000);
+//                cars[5] = new CarSpecification("Volvo CX90", 250,90,210000,2015,98,79000);
+//
+
 
                 AHP ahp = new AHP();
                 ahp.process(criteria, cars, userParametersMin, userParametersMax);
@@ -317,10 +342,6 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         userParametersMax[5] = Double.parseDouble(maxKilometersDone.getText().toString());
 
 
-//        carSpecification = new CarSpecification(companyText,
-//                                                horsePowerIntervalText,
-//                                                safetyLevel, doorAmount,
-//                                                minValue, maxValue);
     }
 
 }

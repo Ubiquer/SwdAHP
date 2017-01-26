@@ -17,6 +17,7 @@ public class AHP
     private double columnSum [][] = new double[numberOfColumns][numberOfColumns];
     private double meanOfRows [][] = new double[numberOfColumns][numberOfColumns];
     private double bestResults [] = new double[numberOfColumns];
+    private double consistencyRatioValue [] = new double[numberOfColumns];
     private double totalValueScale[] = new double[]{1, 3, 5, 7, 9};
     private double fractionValueScale[] = new double[]{0.9, 0.333, 0.2, 0.143, 0.111};
 
@@ -199,7 +200,26 @@ public class AHP
             }
         }
         Log.i("cos:", bestResults[0] + "");
+        consistencyRatio();
         return 1;
     }
+
+    private double consistencyRatio() {
+        double tempResult = 0;
+//        for(int i = 1; i<numberOfColumns-1; i++) {
+//            tempResult+=(columnSum[0][i]*meanOfRows)
+//        }
+        for(int i = 1; i<numberOfColumns; i++) {
+            for(int j = 1; j<numberOfColumns; j++){
+                tempResult +=columnSum[i][j]*meanOfRows[i][j];
+            }
+            consistencyRatioValue[i] = ((tempResult-(numberOfColumns-1))/(numberOfColumns-2))/1.24;
+            tempResult = 0;
+        }
+
+        return 1.0;
+    }
+
+
 
 }
