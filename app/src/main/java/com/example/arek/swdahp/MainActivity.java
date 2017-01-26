@@ -57,12 +57,18 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     @BindView(R.id.comfort_text_view)
     TextView comfortPercentValue;
     @BindView(R.id.min_horse_power)
-    EditText minHorsePower;
+    EditText minHorsePowerEditText;
     @BindView(R.id.max_horse_power)
-    EditText maxHorsePower;
+    EditText maxHorsePowerEditText;
+    @BindView(R.id.min_kilometers_done)
+    EditText minKilometersDone;
+    @BindView(R.id.max_kilometers_done)
+    EditText maxKilometersDone;
 
-    public double minCostValue;
-    public double maxCostValue;
+    public double minHorsePower;
+    public double maxHorsePower;
+    public double comfort;
+
 
     public double minProductionYearDouble;
     public double maxProductionYearDouble;
@@ -81,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     private ArrayAdapter maxProductionYearArrayAdapter;
     private String companyText;
     private String horsePowerIntervalText;
-    private int safetyLevel;
+    private double safetyLevel;
     private int minValue;
     private int maxValue;
 
@@ -104,7 +110,8 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                gatherData();
+                gatherData();
+
                 startActivity(i);
             }
         });
@@ -191,29 +198,35 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             }
         });
 
+        maxProductionYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String minProdString = (String) maxProductionYear.getSelectedItem();
+                maxProductionYearDouble = Double.parseDouble(minProdString);
+//                Log.i("rok", minProdString);
+//                Log.d("rok double ", minProductionYearDouble +" ");
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
     }
 
-    private void gatherData(){
-
-//        safetyLevel = Integer.parseInt(seekBarTextView.getText().toString());
-
-        minValue = Integer.parseInt(minValueEditText.getText().toString());
-        maxValue = Integer.parseInt(maxValueEditText.getText().toString());
-
-//        carSpecification = new CarSpecification(companyText,
-//                                                horsePowerIntervalText,
-//                                                safetyLevel, doorAmount,
-//                                                minValue, maxValue);
-    }
 
     public void getStarsValue() {
 
-        //Performing action on Button Click
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                 Toast.makeText(getApplicationContext(), String.valueOf(ratingBar.getRating()), Toast.LENGTH_SHORT).show();
+                safetyLevel = Double.parseDouble(String.valueOf(ratingBar.getRating()));
             }
         });
     }
@@ -242,18 +255,6 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                 criteria[4] = 7;
                 criteria[5] = 9;
 
-                userParametersMin[0] = 10;
-                userParametersMax[0] = 15;
-                userParametersMin[1] = 5;
-                userParametersMax[1] = 6;
-                userParametersMin[2] = 23;
-                userParametersMax[2] = 25;
-                userParametersMin[3] = 50;
-                userParametersMax[3] = 55;
-                userParametersMin[4] = 21;
-                userParametersMax[4] = 25;
-                userParametersMin[5] = 10;
-                userParametersMax[5] = 14;
                 AHP ahp = new AHP();
                 ahp.process(criteria, cars, userParametersMin, userParametersMax);
             }
@@ -280,6 +281,8 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     public void onStopTrackingTouch(SeekBar seekBar) {
 
         updateComfortLevel(seekBar.getProgress());
+        comfort = Double.parseDouble(String.valueOf(seekBar.getProgress()));
+
 //        Toast.makeText(getApplicationContext(),"seekbar touch stopped!", Toast.LENGTH_SHORT).show();
 
     }
@@ -297,5 +300,27 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         comfortPercentValue.setText(comfortLevel);
     }
 
+
+    private void gatherData(){
+
+        userParametersMin[0] = Double.parseDouble(minHorsePowerEditText.getText().toString());
+        userParametersMax[0] = Double.parseDouble(maxHorsePowerEditText.getText().toString());
+        userParametersMin[1] = safetyLevel*20;
+        userParametersMax[1] = (safetyLevel*20)+10;
+        userParametersMin[2] = Double.parseDouble(minValueEditText.getText().toString());
+        userParametersMax[2] = Double.parseDouble(maxValueEditText.getText().toString());
+        userParametersMin[3] = minProductionYearDouble;
+        userParametersMax[3] = maxProductionYearDouble;
+        userParametersMin[4] = comfort;
+        userParametersMax[4] = comfort + 10;
+        userParametersMin[5] = Double.parseDouble(minKilometersDone.getText().toString());
+        userParametersMax[5] = Double.parseDouble(maxKilometersDone.getText().toString());
+
+
+//        carSpecification = new CarSpecification(companyText,
+//                                                horsePowerIntervalText,
+//                                                safetyLevel, doorAmount,
+//                                                minValue, maxValue);
+    }
 
 }
