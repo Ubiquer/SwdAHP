@@ -206,9 +206,12 @@ public class AHP
 
     private double consistencyRatio() {
         double tempResult = 0;
-//        for(int i = 1; i<numberOfColumns-1; i++) {
-//            tempResult+=(columnSum[0][i]*meanOfRows)
-//        }
+        for(int i = 1; i<numberOfColumns; i++) {
+            tempResult+=(columnSum[0][i]*meanOfRows[0][i]);
+        }
+        consistencyRatioValue[0] = ((tempResult-(numberOfColumns-1))/(numberOfColumns-2))/1.24;
+        tempResult=0;
+
         for(int i = 1; i<numberOfColumns; i++) {
             for(int j = 1; j<numberOfColumns; j++){
                 tempResult +=columnSum[i][j]*meanOfRows[i][j];
