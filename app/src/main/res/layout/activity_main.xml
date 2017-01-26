@@ -24,35 +24,71 @@
         android:layout_height="wrap_content"
         android:onClick="ahp_start"/>
 
-    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+    <Spinner
         android:id="@+id/company_spinner"
         android:hint="Marka"
         android:padding="4dp"
         android:paddingLeft="8dp"
-        app:met_floatingLabel="normal"
         android:layout_width="match_parent"
         android:textColorHint="@color/colorGrey"
         android:layout_height="wrap_content" />
+    <TextView
+        android:textSize="16sp"
+        android:paddingLeft="10sp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="Min rok produkcji: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-        android:id="@+id/year_of_production"
+    <Spinner
+        android:id="@+id/min_year_of_production"
         android:padding="4dp"
         android:paddingLeft="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Rok produkcji"
-        app:met_floatingLabel="normal"
+        android:hint="Rok prod. min"
         android:textColorHint="@color/colorGrey"/>
 
-    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-        android:id="@+id/engine_power_spinner"
+    <TextView
+        android:textSize="16sp"
+        android:paddingLeft="10sp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="Max rok produkcji: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Spinner
+        android:id="@+id/max_year_of_production"
         android:padding="4dp"
         android:paddingLeft="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Moc silnika"
-        app:met_floatingLabel="normal"
+        android:hint="Rok prod.max"
         android:textColorHint="@color/colorGrey"/>
+
+    <TextView
+        android:text="Poziom komfortu"
+        android:textSize="16dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <android.support.v7.widget.AppCompatSeekBar
+        android:id="@+id/comfort_seek_bar"
+        android:paddingBottom="16dp"
+        android:textColorHint="@color/colorGrey"
+        android:layout_alignParentRight="true"
+        android:textAlignment="center"
+        android:paddingTop="18dp"
+        android:paddingRight="4dp"
+        android:paddingLeft="16dp"
+        app:met_floatingLabel="normal"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 <RelativeLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
@@ -71,8 +107,9 @@
     android:textColorHint="@color/colorGrey"
     android:padding="8dp"
     android:layout_below="@id/value_textView"
-    android:layout_width="88dp"
+    android:layout_width="150dp"
     android:layout_height="wrap_content"
+        android:inputType="number"
     />
 
     <EditText
@@ -81,44 +118,82 @@
         android:textColorHint="@color/colorGrey"
         android:padding="8dp"
         android:layout_below="@id/value_textView"
-        android:layout_width="88dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/minValue" />
+        android:layout_toRightOf="@id/minValue"
+        android:inputType="number"/>
 
-    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-        android:id="@+id/fuel_kind_spinner"
-        android:layout_toRightOf="@id/maxValue"
-        android:hint="Rodzaj paliwa"
-        android:textColorHint="@color/colorGrey"
-        android:layout_alignParentRight="true"
-        android:paddingTop="18dp"
-        android:paddingRight="4dp"
-        android:paddingLeft="16dp"
-        app:met_floatingLabel="normal"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content" />
-
-    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+    <TextView
         android:layout_below="@id/minValue"
-        android:paddingTop="8dp"
-        android:paddingLeft="8dp"
-        android:id="@+id/amortization_edit_text"
-        android:hint="Przebieg (tyś km)"
-        android:textColorHint="@color/colorGrey"
+        android:id="@+id/kilometers_done_text_view"
+        android:padding="8dp"
+        android:paddingLeft="12dp"
+        android:text="Przebieg:"
+        android:textSize="16sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <!--<com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner-->
-        <!--android:layout_below="@id/door_amount_spinner"-->
-        <!--android:layout_toRightOf="@id/amortization_edit_text"-->
-        <!--android:paddingTop="6dp"-->
-        <!--android:paddingLeft="24dp"-->
-        <!--android:id="@+id/year_edit_text"-->
-        <!--android:hint="Rok produkcji"-->
-        <!--android:textColorHint="@color/colorGrey"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content" />-->
+    <EditText
+        android:id="@+id/min_kilometers_done"
+        android:hint="min"
+        android:textColorHint="@color/colorGrey"
+        android:padding="8dp"
+        android:layout_below="@id/kilometers_done_text_view"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"/>
 
+    <EditText
+        android:id="@+id/max_kilometers_done"
+        android:hint="max"
+        android:textColorHint="@color/colorGrey"
+        android:padding="8dp"
+        android:layout_width="150dp"
+        android:layout_below="@id/kilometers_done_text_view"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/min_kilometers_done"
+        android:inputType="number"/>
+
+    <TextView
+        android:id="@+id/comfort_text_view"
+        android:gravity="center"
+        android:paddingLeft="50dp"
+        android:paddingBottom="16dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:layout_below="@id/min_kilometers_done"
+        android:id="@+id/horse_power_text_view"
+        android:padding="8dp"
+        android:paddingLeft="12dp"
+        android:text="Moc silnika:"
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/min_horse_power"
+        android:hint="min hp"
+        android:textColorHint="@color/colorGrey"
+        android:padding="8dp"
+        android:layout_below="@id/horse_power_text_view"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"/>
+
+    <EditText
+        android:id="@+id/max_horse_power"
+        android:hint="max hp"
+        android:textColorHint="@color/colorGrey"
+        android:padding="8dp"
+        android:layout_width="150dp"
+        android:layout_below="@id/horse_power_text_view"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/min_horse_power"
+        android:inputType="number"/>
 
 </RelativeLayout>
 
@@ -130,13 +205,6 @@
         android:id="@+id/safety"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
-    <!--<TextView-->
-        <!--android:paddingTop="16dp"-->
-        <!--android:layout_gravity="center_horizontal"-->
-        <!--android:id="@+id/seek_bar_text_view"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content" />-->
 
     <RatingBar
         android:paddingTop="8dp"
@@ -150,13 +218,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         />
-
-    <!--<SeekBar-->
-        <!--android:paddingTop="8dp"-->
-        <!--android:paddingBottom="16dp"-->
-        <!--android:id="@+id/safety_seek_bar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content" />-->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/search"

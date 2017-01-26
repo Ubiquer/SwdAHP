@@ -4,42 +4,48 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatSeekBar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.SeekBar;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.R.attr.cropToPadding;
-import static android.R.attr.rating;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener{
 
     double [] criteria = new double[6];
     double [] userParametersMin = new double[6];
     double [] userParametersMax = new double[6];
 
+    private boolean userIsInteracting;
+
+    @BindView(R.id.min_year_of_production)
+    Spinner minProductionYear;
+    @BindView(R.id.max_year_of_production)
+    Spinner maxProductionYear;
+    @BindView(R.id.comfort_seek_bar)
+    AppCompatSeekBar comfortSeekBar;
     @BindView(R.id.search)
     FloatingActionButton searchButton;
     @BindView(R.id.company_spinner)
-    MaterialBetterSpinner companySpinner;
-    @BindView(R.id.engine_power_spinner)
-    MaterialBetterSpinner enginePowerSpinner;
-//    @BindView(R.id.safety_seek_bar)
-//    SeekBar safetySeekBar;
-//    @BindView(R.id.seek_bar_text_view)
-//    TextView seekBarTextView;
+    Spinner companySpinner;
     @BindView(R.id.minValue)
     EditText minValueEditText;
     @BindView(R.id.maxValue)
@@ -48,18 +54,34 @@ public class MainActivity extends AppCompatActivity {
     RatingBar ratingBar;
     @BindView(R.id.car_icon)
     ImageButton imageButton;
+    @BindView(R.id.comfort_text_view)
+    TextView comfortPercentValue;
+    @BindView(R.id.min_horse_power)
+    EditText minHorsePower;
+    @BindView(R.id.max_horse_power)
+    EditText maxHorsePower;
+
+    public double minCostValue;
+    public double maxCostValue;
+
+    public double minProductionYearDouble;
+    public double maxProductionYearDouble;
+
+    private String comfortLevel;
 
     private ArrayList<String> companyArrayList;
     private ArrayList<Integer> doorArrayList;
     private ArrayList<String> enginePowerArrayList;
+    private ArrayList<String> minProductionYearArrayList;
+    private ArrayList<String> maxProductionYearArrayList;
 
     private ArrayAdapter companyArrayAdapter;
     private ArrayAdapter doorArrayAdapter;
-    private ArrayAdapter enginePowerArrayAdapter;
+    private ArrayAdapter minProductionYearArrayAdapter;
+    private ArrayAdapter maxProductionYearArrayAdapter;
     private String companyText;
     private String horsePowerIntervalText;
     private int safetyLevel;
-    private int doorAmount;
     private int minValue;
     private int maxValue;
 
@@ -70,8 +92,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         setupViews();
         final Intent i = new Intent(this, ScoresActivity.class);
+
+        updateComfortLevel(comfortSeekBar.getProgress());
+
+        comfortSeekBar.setOnSeekBarChangeListener(this);
+        maxProductionYear.setEnabled(false);
+
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,9 +121,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+        userIsInteracting = true;
+    }
+
     private void setupViews(){
 
         companyArrayList = new ArrayList<String>();
+        companyArrayList.add("Wybierz markę");
         companyArrayList.add("Volkswagen");
         companyArrayList.add("Skoda");
         companyArrayList.add("Mercedes");
@@ -105,29 +141,47 @@ public class MainActivity extends AppCompatActivity {
         companyArrayList.add("Mazda");
         companyArrayList.add("Toyota");
 
-        enginePowerArrayList = new ArrayList<String>();
-        enginePowerArrayList.add("zakres 1");
-        enginePowerArrayList.add("zakres 2");
-        enginePowerArrayList.add("zakres 3");
-        enginePowerArrayList.add("zakres 4");
-        enginePowerArrayList.add("zakres 5");
+        minProductionYearArrayList =  new ArrayList<String>(Arrays.asList("2011","2012","2013","2014","2015","2016"));
 
-        companyArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, companyArrayList);
+        maxProductionYearArrayList = new ArrayList<String>(Arrays.asList("2011","2012","2013","2014","2015","2016"));
+
+        companyArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, companyArrayList);
         doorArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, doorArrayList);
-        enginePowerArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, enginePowerArrayList);
+        minProductionYearArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,minProductionYearArrayList);
+        maxProductionYearArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,maxProductionYearArrayList);
 
+        minProductionYear.setAdapter(minProductionYearArrayAdapter);
+        maxProductionYear.setAdapter(maxProductionYearArrayAdapter);
         companySpinner.setAdapter(companyArrayAdapter);
-//        doorAmountSpinner.setAdapter(doorArrayAdapter);
-        enginePowerSpinner.setAdapter(enginePowerArrayAdapter);
 
-//        String companyText;
         companySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                companyText = parent.getItemAtPosition(position).toString();
-                carSpecification.setModelName(companyText);
-                Log.i("selected ", companyText);
+                companyText = (String) companySpinner.getSelectedItem();
+                Log.d("rok double ", companyText +" ");
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                companySpinner.setPrompt("Marka");
+            }
+        });
+
+
+        minProductionYear.setSelection(0,false);
+        minProductionYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String minProdString = (String) minProductionYear.getSelectedItem();
+                minProductionYearDouble = Double.parseDouble(minProdString);
+                Log.i("rok", minProdString);
+                Log.d("rok double ", minProductionYearDouble +" ");
+                maxProductionYear.setEnabled(true);
 
             }
 
@@ -137,24 +191,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        enginePowerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    horsePowerIntervalText = parent.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
     }
 
     private void gatherData(){
 
 //        safetyLevel = Integer.parseInt(seekBarTextView.getText().toString());
+
         minValue = Integer.parseInt(minValueEditText.getText().toString());
         maxValue = Integer.parseInt(maxValueEditText.getText().toString());
 
@@ -215,6 +258,43 @@ public class MainActivity extends AppCompatActivity {
                 ahp.process(criteria, cars, userParametersMin, userParametersMax);
             }
         }).start();
+    }
+
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+        updateComfortLevel(seekBar.getProgress());
+//        Toast.makeText(getApplicationContext(),"seekbar progress: "+progress, Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+//        Toast.makeText(getApplicationContext(),"seekbar touch started!", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+        updateComfortLevel(seekBar.getProgress());
+//        Toast.makeText(getApplicationContext(),"seekbar touch stopped!", Toast.LENGTH_SHORT).show();
+
+    }
+
+    private void updateComfortLevel(int comfort) {
+
+        if(comfort<=25)
+            comfortLevel = "niski komfort";
+        else if(comfort>25 && comfort<=50)
+            comfortLevel = "średni komfort";
+        else if(comfort>50 && comfort<=75)
+            comfortLevel = "dobry komfort";
+        else comfortLevel = "wysoki komfort";
+
+        comfortPercentValue.setText(comfortLevel);
     }
 
 
