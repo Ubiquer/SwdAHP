@@ -26,7 +26,7 @@ public class AHP
     double [][] decisionMatrixSafetyLevel = new double[numberOfColumns][numberOfColumns];
     double [][] decisionMatrixCost = new double[numberOfColumns][numberOfColumns];
     double [][] decisionMatrixYear = new double[numberOfColumns][numberOfColumns];
-    double [][] decisionMatrixFuel = new double[numberOfColumns][numberOfColumns];
+    double [][] decisionMatrixComfort = new double[numberOfColumns][numberOfColumns];
     double [][] decisionMatrixKilometersDone = new double[numberOfColumns][numberOfColumns];
 
 
@@ -43,7 +43,7 @@ public class AHP
                 decisionMatrixSafetyLevel = initializeDecisionMatrix(cars, userParametersMin[1], userParametersMax[1], "safetyLevel", 2);
                 decisionMatrixCost = initializeDecisionMatrix(cars, userParametersMin[2], userParametersMax[2], "cost", 3);
                 decisionMatrixYear = initializeDecisionMatrix(cars, userParametersMin[3], userParametersMax[3], "year", 4);
-                decisionMatrixFuel = initializeDecisionMatrix(cars, userParametersMin[4], userParametersMax[4], "fuel", 5);
+                decisionMatrixComfort = initializeDecisionMatrix(cars, userParametersMin[4], userParametersMax[4], "comfort", 5);
                 decisionMatrixKilometersDone = initializeDecisionMatrix(cars, userParametersMin[5], userParametersMax[5], "kilometersDone", 6);
 
                 bestResult();

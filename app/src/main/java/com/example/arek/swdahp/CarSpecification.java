@@ -11,16 +11,16 @@ public class CarSpecification {
     private int cost;
     private int year;
     private int kilometersDone;
-    private int fuel;
+    private int comfort;
 
-    public CarSpecification(String modelName, int horsePower, int safetyLevel, int cost, int year, int fuel, int kilometersDone) {
+    public CarSpecification(String modelName, int horsePower, int safetyLevel, int cost, int year, int comfort, int kilometersDone) {
 
         this.modelName = modelName;
         this.horsePower = horsePower;
         this.safetyLevel = safetyLevel;
         this.cost = cost;
         this.year = year;
-        this.fuel = fuel;
+        this.comfort = comfort;
         this.kilometersDone = kilometersDone;
     }
 
@@ -44,8 +44,8 @@ public class CarSpecification {
         this.year = year;
     }
 
-    public void setFuel(int fuel) {
-        this.fuel = fuel;
+    public void setComfort(int comfort) {
+        this.comfort = comfort;
     }
 
     public int returnParameter(String theThing) {
@@ -58,8 +58,8 @@ public class CarSpecification {
                 return this.cost;
             case  "year":
                 return this.year;
-            case "fuel":
-                return this.fuel;
+            case "comfort":
+                return this.comfort;
             case "kilometersDone":
                 return this.kilometersDone;
             default:

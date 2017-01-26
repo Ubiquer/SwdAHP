@@ -191,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
                 cars[4] = new CarSpecification("autok", 10,67,1,77,42,44);
                 cars[5] = new CarSpecification("autok", 14,89,89,64,12,48);
 
+
                 criteria[0] = 1;
                 criteria[1] = 3;
                 criteria[2] = 4;
