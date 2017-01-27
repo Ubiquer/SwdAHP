@@ -359,18 +359,18 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 //        userParametersMin[5] = Double.parseDouble(minKilometersDone.getText().toString());
 //        userParametersMax[5] = Double.parseDouble(maxKilometersDone.getText().toString());
 
-        userParametersMin[0] = 100;
-        userParametersMax[0] = 180;
+        userParametersMin[0] = 200;
+        userParametersMax[0] = 450;
         userParametersMin[1] = 60;
         userParametersMax[1] = 80;
-        userParametersMin[2] = 100000;
-        userParametersMax[2] = 180000;
-        userParametersMin[3] = 2012;
+        userParametersMin[2] = 200000;
+        userParametersMax[2] = 300000;
+        userParametersMin[3] = 2015;
         userParametersMax[3] = 2016;
         userParametersMin[4] = 70;
         userParametersMax[4] = 90;
-        userParametersMin[5] = 1000;
-        userParametersMax[5] = 50000;
+        userParametersMin[5] = 30000;
+        userParametersMax[5] = 70000;
 
         ahpStart();
 

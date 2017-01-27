@@ -84,6 +84,7 @@ public class ScoresActivity extends AppCompatActivity {
                 cars[5] = new CarSpecification("Mercedes Klasa E TS213", 260,85,390000,2016,95,7000);
                 break;
         }
+
         newIndices = insertionSort(bestResults);
         for (int i=cars.length-1 ; i>=0; i--) {
             carsShuffeled[i] = cars[newIndices[i]];
@@ -91,9 +92,10 @@ public class ScoresActivity extends AppCompatActivity {
 
         RecyclerView rv = (RecyclerView)findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        CardAdapter cardAdapterr = new CardAdapter(cars, companyText);
-        rv.setLayoutManager(layoutManager);
+        CardAdapter cardAdapterr = new CardAdapter(carsShuffeled, companyText);
         rv.setAdapter(cardAdapterr);
+        rv.setLayoutManager(layoutManager);
+
 
 //        rv.setHasFixedSize(true);
 

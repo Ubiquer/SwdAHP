@@ -32,7 +32,31 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> {
                 images[4] = R.drawable.car4;
                 images[5] = R.drawable.car5;
                 break;
-                }
+            case "BMW":
+                images[0] = R.drawable.car6;
+                images[1] = R.drawable.car7;
+                images[2] = R.drawable.car8;
+                images[3] = R.drawable.car9;
+                images[4] = R.drawable.car10;
+                images[5] = R.drawable.car11;
+                break;
+            case "Audi":
+                images[0] = R.drawable.car12;
+                images[1] = R.drawable.car13;
+                images[2] = R.drawable.car14;
+                images[3] = R.drawable.car15;
+                images[4] = R.drawable.car16;
+                images[5] = R.drawable.car17;
+                break;
+            case "Volvo":
+                images[0] = R.drawable.car18;
+                images[1] = R.drawable.car19;
+                images[2] = R.drawable.car20;
+                images[3] = R.drawable.car21;
+                images[4] = R.drawable.car22;
+                images[5] = R.drawable.car23;
+                break;
+            }
         }
 
 
