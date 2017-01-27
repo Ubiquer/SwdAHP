@@ -24,6 +24,8 @@ public class ScoresActivity extends AppCompatActivity {
     ImageView exampleCarImageView;
 
     public CarSpecification [] cars  = new CarSpecification[7];
+    public CarSpecification [] carsShuffeled  = new CarSpecification[7];
+    public int [] newIndices = new int[7];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +35,6 @@ public class ScoresActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String companyText = intent.getStringExtra("companyText");
         double [] bestResults = intent.getDoubleArrayExtra("bestResults");
-
-        RecyclerView rv = (RecyclerView)findViewById(R.id.recycler_view);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        CardAdapter cardAdapterr = new CardAdapter(cars, companyText);
-        rv.setLayoutManager(layoutManager);
-        rv.setAdapter(cardAdapterr);
-//        rv.setHasFixedSize(true);
 
         switch(companyText){
             case "Mercedes":
@@ -87,15 +82,42 @@ public class ScoresActivity extends AppCompatActivity {
                 cars[3] = new CarSpecification("Mercedes Klasa E Coupe C207", 220,72,310000,2014,82,55000);
                 cars[4] = new CarSpecification("Mercedes Klasa E W212", 245,79,230000,2012,88,69000);
                 cars[5] = new CarSpecification("Mercedes Klasa E TS213", 260,85,390000,2016,95,7000);
+                break;
         }
-        getIndices(cars, bestResults);
+        newIndices = insertionSort(bestResults);
+        for (int i=cars.length-1 ; i>=0; i--) {
+            carsShuffeled[i] = cars[newIndices[i]];
+        }
+
+        RecyclerView rv = (RecyclerView)findViewById(R.id.recycler_view);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        CardAdapter cardAdapterr = new CardAdapter(cars, companyText);
+        rv.setLayoutManager(layoutManager);
+        rv.setAdapter(cardAdapterr);
+
+//        rv.setHasFixedSize(true);
 
     }
-    public double [] getIndices(CarSpecification [] cars, double[] bestResults)
-    {
-        double [] sortedResults = new double[];
-        sortedResults = Arrays.copyOf(bestResults);
-
+    public static double[] copyOf(double[] original, int newLength) {
+        double[] copy = new double[newLength];
+        System.arraycopy(original, 0, copy, 0,
+                Math.min(original.length, newLength));
+        return copy;
+    }
+    public static int[] insertionSort(double[] arr){
+        int[] indices = new int[arr.length];
+        indices[0] = 0;
+        for(int i=1;i<arr.length;i++){
+            int j=i;
+            for(;j>=1 && arr[j]<arr[j-1];j--){
+                double temp = arr[j];
+                arr[j] = arr[j-1];
+                indices[j]=indices[j-1];
+                arr[j-1] = temp;
+            }
+            indices[j]=i;
+        }
+        return indices;//indices of sorted elements
     }
 
 
